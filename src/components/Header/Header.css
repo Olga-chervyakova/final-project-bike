@@ -1,0 +1,6 @@
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    background-color: rgba(24, 24, 24, 0.507);
+    height: 100px;
+}
