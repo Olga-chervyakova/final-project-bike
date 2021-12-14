@@ -1,9 +1,10 @@
-import "./style.css";
+
 import React from "react";
-import { BrowserRouter as Router } from "react-router-dom";
-import Header from "./components/Header";
+import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
 
-
+import Header from "./components/Header/Header.js";
+import Footer from "./components/Footer/Footer.js";
+import "./style.css";
 
 
 function App() {
@@ -11,8 +12,16 @@ function App() {
         <Router>
             <div className="App">
                 <Header />
-                ff
+                <div className="Main">
+                    <div className="Container">
 
+                <Switch>
+
+                </Switch>
+                    </div>
+                </div>
+
+                <Footer />
             </div>
         </Router>
     );

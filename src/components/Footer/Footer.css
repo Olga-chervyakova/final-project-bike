@@ -1,5 +1,5 @@
 .footer-container {
-    background-color: rgb(75, 0, 130);
+    background-color: rgb(84, 185, 234);
     display: flex;
     align-items: center;
 }
@@ -9,6 +9,7 @@
     display: flex;
     justify-content: flex-end;
     align-content: center;
+    margin: 0 50px;
     font-size: 14px;
     font-style: italic;
 }

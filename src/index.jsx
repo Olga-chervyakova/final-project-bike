@@ -1,3 +1,18 @@
+import React from "react";
+import ReactDOM from "react-dom";
 import "./style.css";
+import App from "./App.jsx";
+import { BrowserRouter} from 'react-router-dom';
 
-console.log('Hello world!');
+
+
+ReactDOM.render(
+    <React.StrictMode>
+        <BrowserRouter>
+
+                <App />
+
+        </BrowserRouter>
+    </React.StrictMode>,
+    document.getElementById('root')
+);

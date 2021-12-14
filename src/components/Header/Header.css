@@ -1,6 +1,57 @@
-.header-container {
+.header {
     display: flex;
-    justify-content: space-between;
-    background-color: rgba(24, 24, 24, 0.507);
-    height: 100px;
+    align-items: center;
+    background-color: rgb(86, 128, 233);
+}
+.header-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+}
+.bicycle-logo {
+    width: 80px;
+    height: 80px;
+    margin-right: 70px;
+}
+.header-container_logo {
+    margin-right: 150px;
+    font-size: 15px;
+    color: rgba(0, 0, 0, 0.329);
+    transition:  0.5s;
+    cursor: pointer;
+}
+.header-container_logo:hover{
+    transform: scale(1.1);
+    color: rgba(250, 170, 139, 0.2);
+}
+.header-container_info {
+    margin: auto 20px;
+    width: 15%;
+}
+.header-container_info ul {
+    display: flex;
+    justify-content: space-around;
+    list-style-type: none;
+}
+.header-container_info ul li {
+    cursor: pointer;
+}
+.header-container h1 a{
+    text-decoration: none;
+    color: rgba(0, 0, 0, 0.33);
+}
+.btn {
+    border-radius: 20px;
+    border: none;
+    padding: 5px;
+    width: 100px;
+    color: white;
+    font-size: 1.45em;
+    font-weight: bold;
+    margin: 0 30px;
+    justify-content: flex-end;
+    cursor: pointer;
+    background: #8860D0;
 }
