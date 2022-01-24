@@ -1,5 +1,6 @@
 .footer-container {
-    background-color: rgb(84, 185, 234);
+    background: #111;
+    color: #a4a4a4;
     display: flex;
     align-items: center;
 }

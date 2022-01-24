@@ -24,17 +24,14 @@ module.exports = {
                 use: [MiniCssExtractPlugin.loader, 'css-loader'],
             },
             {
-                test: /\.svg$/,
+                test: /\.(png|jpg|gif)$/i,
                 use: [
                     {
-                        loader: "svg-url-loader",
-                        options: {
-                            limit: 10000,
-                        },
-                    },
-                ],
-            },
-        ],
+                        loader: "file-loader"
+                    }
+                ]
+            }
+        ]
     },
     plugins: [
         new MiniCssExtractPlugin({
@@ -46,4 +43,7 @@ module.exports = {
         }),
         new CleanWebpackPlugin({}),
     ],
+    devServer: {
+        historyApiFallback: true,
+    }
 };
