@@ -35,11 +35,9 @@ const Login = () => {
                 .post(`/auth/sign_in`, formValues)
                 .then(res => {
                     if (res.status === 200) {
-                        const token = res.data.token;
-                        localStorage.setItem(
-                            "bikeTheftAuthorization",
-                            JSON.stringify({ token, isAuth: true })
-                        );
+                        console.log(res);
+                        console.log(res.data.data.token);
+                        localStorage.setItem("bikeTheftAuthorization", res.data.data.token);
                         history.push("/");
                     } else {
                         alert(res.statusText);
@@ -66,49 +64,49 @@ const Login = () => {
     return (
         <div className="main-container">
             <div className="container">
-                <div className="form-container">
-                    <h1 className="form-logo">Log In</h1>
-                    <form className="form" onSubmit={handleSubmit} noValidate>
-                        <div className="form-control">
-                            <div className="message">
-                                <label htmlFor="email">Email</label>
-                                <div className="control-error">
-                                    {formErrors.email && (
-                                        <span className="error">{formErrors.email}</span>
-                                    )}
+                <div className="container">
+                    <div className="form-container">
+                        <h1 className="form-logo">Log In</h1>
+                        <form className="form" onSubmit={handleSubmit} noValidate>
+                            <div className="form-control">
+                                <div className="message">
+                                    <label htmlFor="email">Email</label>
+                                    <div className="control-error">
+                                        {formErrors.email && (
+                                            <span className="error">{formErrors.email}</span>
+                                        )}
+                                    </div>
                                 </div>
+                                <input
+                                    type="email"
+                                    name="email"
+                                    id="email"
+                                    value={formValues.email}
+                                    onChange={handleChange}
+                                    className={formErrors.email && "input-error"}
+                                />
                             </div>
-
-                            <input
-                                type="email"
-                                name="email"
-                                id="email"
-                                value={formValues.email}
-                                onChange={handleChange}
-                                className={formErrors.email && "input-error"}
-                            />
-                        </div>
-
-                        <div className="form-control">
-                            <div className="message">
-                                <label htmlFor="password">Password</label>
-                                <div className="control-error">
-                                    {formErrors.password && (
-                                        <span className="error">{formErrors.password}</span>
-                                    )}
+                            <div className="form-control">
+                                <div className="message">
+                                    <label htmlFor="password">Password</label>
+                                    <div className="control-error">
+                                        {formErrors.password && (
+                                            <span className="error">{formErrors.password}</span>
+                                        )}
+                                    </div>
                                 </div>
+                                <input
+                                    type="password"
+                                    name="password"
+                                    id="password"
+                                    value={formValues.password}
+                                    onChange={handleChange}
+                                    className={formErrors.password && "input-error"}
+                                />
                             </div>
-                            <input
-                                type="password"
-                                name="password"
-                                id="password"
-                                value={formValues.password}
-                                onChange={handleChange}
-                                className={formErrors.password && "input-error"}
-                            />
-                        </div>
-                        <button className="btn log" type="submit">Log In</button>
-                    </form>
+                            <button className="btn log" type="submit">Log In</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

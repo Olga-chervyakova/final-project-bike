@@ -3,8 +3,11 @@ import thunkMiddleware from "redux-thunk";
 import authReducer from "./auth-reducer.js";
 
 
+
+
 const reducers = combineReducers({
     auth: authReducer,
+
 
 });
 

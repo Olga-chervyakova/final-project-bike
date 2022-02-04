@@ -8,7 +8,8 @@ import Footer from "./components/Footer/Footer";
 import "./style.css";
 import Login from "./components/Authorization/Login";
 import SignUp from "./components/Registration/SignUp";
-
+import TheftMessage from "./components/TheftMessage/TheftMessage";
+import StolenBikes from "./components/StolenBikes/StolenBikes";
 
 
 function App() {
@@ -19,10 +20,18 @@ function App() {
                 <Switch>
                     <Route path="/login" component={Login} />
                     <Route path="/signup" component ={SignUp} />
-                    <Route path="/" exact component={Main} />
+                    <Route path="/theft-message" component={TheftMessage} />
+                    <Route
+                        path="/stolen-bikes"
+                        component={StolenBikes}
+                        exact={true}
+                    />
+                    <Route path="/" component={Main} />
                     <Route path="*" render={() => <Main />} />
+
+
                 </Switch>
-                <Footer/>
+                <Footer />
             </div>
         </Router>
     );

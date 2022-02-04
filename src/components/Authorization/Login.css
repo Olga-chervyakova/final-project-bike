@@ -14,6 +14,9 @@
     padding-right: 15px;
 }
 .form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     background: #f2f2f2;
     border: 1px solid #e4e4e4;
     border-radius: 1px;
@@ -31,6 +34,12 @@
     border-color: #3498db;
     color: white;
 }
+.radio {
+    width: 15px;
+    height: 15px;
+    margin-right: 10px;
+    margin-left: 10px;
+}
 .control-error {
     color: #e63946;
 }
@@ -38,6 +47,7 @@
     color: green;
     align-items: center;
 }
+
 
 
 
