@@ -1,0 +1,31 @@
+.detail-title {
+    text-align: center;
+}
+
+.detail-field {
+    width: 300px;
+}
+.title {
+    color: #00a4b7;
+    margin-top: 2%;
+}
+.immutable {
+    color: red;
+    font-weight: bold;
+}
+.detail-form {
+    max-width: 520px;
+    border: 2px dashed #00a4b7;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 25%;
+}
+.date {
+    border: 1px solid grey;
+}
+
+.save-btn {
+    padding: 10px 7px;
+    margin-bottom: 5%;
+}

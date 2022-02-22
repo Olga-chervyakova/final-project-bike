@@ -1,20 +1,22 @@
-import React, { useState } from "react";
-import "../Authorization/Login.css";
+import React, {useState}  from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
+import "../Authorization/Login.css";
 
-const TheftMessage = () => {
-    const newMessage = {
-        ownerFullName: "",
-        licenseNumber: "",
-        color: "",
-        type: "",
-        description: "",
-        status: "new",
-        createdAt: new Date(),
-        updateAt: new Date(),
+
+const Officers = () => {
+    const officersValues = {
+        firstName: "",
+        lastName: "",
+        email: "",
+        password: "",
+        repassword: "",
         clientId: "af1d5f18-40b4-4325-a2a8-754f2318337a",
+        approved: false,
     };
-    const [formValues, setFormValues] = useState(newMessage);
+    const [formValues, setFormValues] = useState(officersValues);
+    const [isSubmit,setSubmit]=useState();
+
 
     const handleChange = e => {
         const {name, value} = e.target;
@@ -22,24 +24,22 @@ const TheftMessage = () => {
     };
     const handleSubmit = e => {
         e.preventDefault();
-        axios
-            .post("https://sf-final-project.herokuapp.com/api/public/report", formValues)
-            .then(res => {
-                console.log(res.data);
-            })
-            .catch(err => {
-                console.log(err);
-            });
-    };
+        axios.post("https://sf-final-project.herokuapp.com/api/officers",officersValues, {
+            headers:{
+                Authorization: "Bearer " +localStorage.getItem("token")
+            }
+        })
+    }
+
     return (
         <div className="main-container">
             <div className="container">
                 <div className="form-container">
-                    <h1 className="form-logo">Theft report</h1>
+                    <h1 className="form-logo">Cотрудники</h1>
                     <form className="form" onSubmit={handleSubmit}>
                         <div className="form-control">
                             <div className="message">
-                                <label htmlFor="name">ФИО арендатора</label>
+                                <label htmlFor="name">Имя</label>
                                 <div className="control-error">
                                 </div>
                             </div>
@@ -48,95 +48,68 @@ const TheftMessage = () => {
                                 name="ownerFullName"
                                 id="ownerFullName"
                                 onChange={handleChange}
-
                             />
                         </div>
                         <div className="form-control">
                             <div className="message">
-                                <label htmlFor="license">Номер лицензии</label>
-                                <div className="control-error">
-                                </div>
-                            </div>
-
-                            <input
-                                type="text"
-                                name="licenseNumber"
-                                id="licenseNumber"
-                                onChange={handleChange}
-                            />
-                        </div>
-                        <div className="form-control">
-                            <div className="message">
-                                <label htmlFor="color">Цвет</label>
-                                <div className="control-error">
-                                </div>
-                            </div>
-
-                            <input
-                                className="color"
-                                type="color"
-                                id="color"
-                                name="color"
-                                onChange={handleChange}
-                            />
-                        </div>
-
-                        <div className="form-control">
-                            <div className="message">
-                                <label htmlFor="type">Тип</label>
-                                <div className="control-error">
-                                </div>
-                            </div>
-                            <label>
-                                <input
-                                    className="radio"
-                                    type="radio"
-                                    name="type"
-                                    value="sport"
-                                    onChange={handleChange}
-                                />
-                                Sport
-                            </label>
-                            <label>
-                                <input
-                                    className="radio"
-                                    type="radio"
-                                    name="type"
-                                    value="general"
-                                    onChange={handleChange}
-                                />
-                                Basic
-                            </label>
-                        </div>
-                        <div className="form-control">
-                            <div className="message">
-                                <label htmlFor="description">Описание</label>
+                                <label htmlFor="name">Фамилия</label>
                                 <div className="control-error">
                                 </div>
                             </div>
                             <input
                                 type="text"
-                                name="description"
-                                id="description"
+                                name="lastName"
+                                id="lastName"
                                 onChange={handleChange}
                             />
                         </div>
+                        <div className="form-control">
+                            <div className="message">
+                                <label htmlFor="name">Email:</label>
+                                <div className="control-error">
+                                </div>
+                            </div>
+                            <input
+                                type="text"
+                                name="email"
+                                id="email"
+                                onChange={handleChange}
+                            />
+                        </div>
+                        <div className="form-control">
+                            <div className="message">
+                                <label htmlFor="name">Пароль</label>
+                                <div className="control-error">
+                                </div>
+                            </div>
+                            <input
+                                type="password"
+                                name="password"
+                                id="password"
+                                onChange={handleChange}
+                            />
+                        </div>
+                        <div className="form-control">
+                            <div className="message">
+                                <label htmlFor="name">Повторите пароль</label>
+                                <div className="control-error">
+                                </div>
+                            </div>
+                            <input
+                                type="password"
+                                name="repassword"
+                                id="repassword"
+                                onChange={handleChange}
+                            />
+                        </div>
+
                         <button className="btn log" type="submit">Отправить</button>
+                        {isSubmit && <small className="report-text">Отправлено!</small>}
+                        <Link className="link" to="/officerlist">Список сотрудников</Link>
                     </form>
                 </div>
             </div>
         </div>
     );
 };
-
-export default TheftMessage;
-
-
-
-
-
-
-
-
-
-
+export default Officers;

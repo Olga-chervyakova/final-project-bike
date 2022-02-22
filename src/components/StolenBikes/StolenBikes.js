@@ -1,33 +1,36 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import Moment from "moment";
+import "regenerator-runtime/runtime";
+import "core-js/stable";
+import axios from "axios";
+
 import "./index.css";
-const ReportList = () => {
+import {Link} from "react-router-dom";
+
+const StolenBikes = () => {
     const [data, setData] = useState([]);
+
     const handleDelete = e => {
         e.preventDefault();
 
-        const itemIdx = +e.target.attributes.getNamedItem("deteleitem").value;
+        const itemIdx = +e.target.attributes.getNamedItem("deleteitem").value;
         const item = data[itemIdx];
-        console.log(itemIdx)
+        console.log(itemIdx);
+    }
 
-    };
     const loadData = async () => {
-        console.log(localStorage.getItem("bikeTheftAuthorization"));
         const response = await axios.get("https://sf-final-project.herokuapp.com/api/cases", {
-            headers: {
-                Authorization:
-                    "Bearer " + localStorage.getItem("bikeTheftAuthorization")
+            headers:{
+                Authorization: "Bearer " + localStorage.getItem("token")
             }
-        })
-         .then(res => {
-            console.log(response.data);
-            setData(response.data);
-         });
+        });
+        // .then(res => {
+        console.log(response.data);
+        setData(response.data);
+        // });
     };
 
     useEffect(() => {
-        console.log(localStorage.getItem("bikeTheftAuthorization"));
         loadData();
     }, []);
 
@@ -38,14 +41,12 @@ const ReportList = () => {
                     <table cellPadding="0" cellSpacing="0" border="0">
                         <thead>
                         <tr key="0">
-                            <th>Date</th>
-                            <th>Type</th>
-                            <th>Color</th>
-                            <th>Name of Owner</th>
-                            <th>Ответственный сотрудник</th>
-                            <th>Status</th>
+                            <th>date</th>
+                            <th>type</th>
+                            <th>color</th>
+                            <th>ownerFullName</th>
+                            <th>officers</th>
                             <th>Changed</th>
-                            <th>Solution</th>
                             <th>Решение</th>
                         </tr>
                         </thead>
@@ -61,14 +62,18 @@ const ReportList = () => {
                                     <td>{report.type}</td>
                                     <td>{report.color}</td>
                                     <td>{report.ownerFullName}</td>
-                                    <td>{report.officer || "-"}</td>
+                                    <td>{report.officers || "-"}</td>
                                     <td>{report.status}</td>
                                     <td>{Moment(report.updateAt).format("DD.MM.YYYY")}</td>
                                     <td>{report.resolution}</td>
                                     <td>
-                                        <button deteleitem={index} onClick={handleDelete}>
+                                        <button deleteitem={index} onClick={handleDelete}>
                                             Delete
                                         </button>
+                                        <Link to={{
+                                            pathname: "/detail",
+                                            state: item,
+                                        }}><button className="detail-btn">Подробно</button></Link>
                                     </td>
                                 </tr>
                             );
@@ -80,4 +85,4 @@ const ReportList = () => {
         </div>
     );
 };
-export default ReportList;
+export default StolenBikes;
