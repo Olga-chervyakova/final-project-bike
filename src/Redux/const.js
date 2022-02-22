@@ -1,1 +1,0 @@
-export const MY_CLIENT_ID = "af1d5f18-40b4-4325-a2a8-754f2318337a"
