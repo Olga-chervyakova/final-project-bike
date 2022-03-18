@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import "../Authorization/Login.css";
 import axios from "axios";
 
@@ -9,6 +9,7 @@ const Report = () => {
         color: "",
         type: "",
         description: "",
+        officer: "",
         status: "new",
         createdAt: new Date(),
         updateAt: new Date(),
@@ -16,6 +17,12 @@ const Report = () => {
         approved: false
     };
     const [formValues, setFormValues] = useState(reportValues);
+    const [formErrors, setFormErrors] = useState({});
+    const [isSubmitting, setIsSubmitting] = useState(false);
+
+    const submit = () => {
+        console.log(formValues);
+    };
 
     const handleChange = e => {
         const {name, value} = e.target;
@@ -23,6 +30,7 @@ const Report = () => {
     };
     const handleSubmit = e => {
         e.preventDefault();
+        setIsSubmitting(true);
         axios
             .post("https://sf-final-project.herokuapp.com/api/public/report", formValues)
             .then(res => {
@@ -43,13 +51,23 @@ const Report = () => {
             .then(res => {
                 console.log(res)
             });
+
     };
+    useEffect(() => {
+        if (Object.keys(formErrors).length === 0 && isSubmitting) {
+            submit();
+        }
+    }, [formErrors]);
 
     return (
         <div className="main-container">
             <div className="container">
                 <div className="form-container">
                     <h1 className="form-logo">Theft report</h1>
+                    {Object.keys(formErrors).length === 0 && isSubmitting && (
+                        <span className="success-msg">Форма успешно отправлена!</span>
+                    )}
+
                     <form className="form" onSubmit={handleSubmit}>
                         <div className="form-control">
                             <div className="message">

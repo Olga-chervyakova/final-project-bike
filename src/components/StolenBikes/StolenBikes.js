@@ -5,29 +5,26 @@ import "core-js/stable";
 import axios from "axios";
 
 import "./index.css";
-import {Link} from "react-router-dom";
 
 const StolenBikes = () => {
     const [data, setData] = useState([]);
-
     const handleDelete = e => {
         e.preventDefault();
 
-        const itemIdx = +e.target.attributes.getNamedItem("deleteitem").value;
+        const itemIdx = +e.target.attributes.getNamedItem("deteleitem").value;
         const item = data[itemIdx];
-        console.log(itemIdx);
+        console.log(itemIdx)
     }
-
     const loadData = async () => {
         const response = await axios.get("https://sf-final-project.herokuapp.com/api/cases", {
             headers:{
-                Authorization: "Bearer " + localStorage.getItem("token")
+                Authorization: "Bearer " + localStorage.getItem
             }
         });
-        // .then(res => {
+        //.then(res => {
         console.log(response.data);
         setData(response.data);
-        // });
+         //});
     };
 
     useEffect(() => {
@@ -54,7 +51,7 @@ const StolenBikes = () => {
                 </div>
                 <div className="tbl-content">
                     <table>
-                        <tbody>
+                        <tmain>
                         {data.map((report, index) => {
                             return (
                                 <tr key={index + 1}>
@@ -67,18 +64,14 @@ const StolenBikes = () => {
                                     <td>{Moment(report.updateAt).format("DD.MM.YYYY")}</td>
                                     <td>{report.resolution}</td>
                                     <td>
-                                        <button deleteitem={index} onClick={handleDelete}>
+                                        <button deteleitem={index} onClick={handleDelete}>
                                             Delete
                                         </button>
-                                        <Link to={{
-                                            pathname: "/detail",
-                                            state: item,
-                                        }}><button className="detail-btn">Подробно</button></Link>
                                     </td>
                                 </tr>
                             );
                         })}
-                        </tbody>
+                        </tmain>
                     </table>
                 </div>
             </div>
@@ -86,3 +79,4 @@ const StolenBikes = () => {
     );
 };
 export default StolenBikes;
+

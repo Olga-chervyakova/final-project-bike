@@ -3,31 +3,35 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import "../Authorization/Login.css";
 
-
 const Officers = () => {
-    const officersValues = {
-        firstName: "",
-        lastName: "",
-        email: "",
-        password: "",
-        repassword: "",
-        clientId: "af1d5f18-40b4-4325-a2a8-754f2318337a",
-        approved: false,
-    };
-    const [formValues, setFormValues] = useState(officersValues);
-    const [isSubmit,setSubmit]=useState();
+    const [isSubmit,setSubmit]=useState()
+    const [data,setData]=useState(null)
+    const [name,setName]=useState("")
+    const [surName,setSurName]=useState("")
+    const [email,setEmail]=useState("")
+    const [password,setPassword]=useState("")
 
-
-    const handleChange = e => {
-        const {name, value} = e.target;
-        setFormValues({...formValues, [name]: value});
-    };
-    const handleSubmit = e => {
-        e.preventDefault();
-        axios.post("https://sf-final-project.herokuapp.com/api/officers",officersValues, {
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        const data = {
+            firstName: name,
+            lastName: surName,
+            email: email,
+            password: password,
+            clientId: "af1d5f18-40b4-4325-a2a8-754f2318337a",
+            approved: false,
+        }
+        axios.post("https://sf-final-project.herokuapp.com/api/officers",data, {
             headers:{
                 Authorization: "Bearer " +localStorage.getItem("token")
             }
+        }).then(res => {
+            setData(res.data)
+            setName("")
+            setSurName("")
+            setEmail("")
+            setPassword("")
+            setSubmit(true)
         })
     }
 
@@ -45,9 +49,9 @@ const Officers = () => {
                             </div>
                             <input
                                 type="text"
-                                name="ownerFullName"
-                                id="ownerFullName"
-                                onChange={handleChange}
+                                name="firstName"
+                                id="firstName"
+                                onChange={(e) => setName(e.target.value)} value={name}
                             />
                         </div>
                         <div className="form-control">
@@ -60,7 +64,7 @@ const Officers = () => {
                                 type="text"
                                 name="lastName"
                                 id="lastName"
-                                onChange={handleChange}
+                                onChange={(e) => setSurName(e.target.value)} value={surName}
                             />
                         </div>
                         <div className="form-control">
@@ -73,7 +77,7 @@ const Officers = () => {
                                 type="text"
                                 name="email"
                                 id="email"
-                                onChange={handleChange}
+                                onChange={(e) => setEmail(e.target.value)} value={email}
                             />
                         </div>
                         <div className="form-control">
@@ -86,26 +90,12 @@ const Officers = () => {
                                 type="password"
                                 name="password"
                                 id="password"
-                                onChange={handleChange}
+                                onChange={(e) => setPassword(e.target.value)} value={password}
                             />
                         </div>
-                        <div className="form-control">
-                            <div className="message">
-                                <label htmlFor="name">Повторите пароль</label>
-                                <div className="control-error">
-                                </div>
-                            </div>
-                            <input
-                                type="password"
-                                name="repassword"
-                                id="repassword"
-                                onChange={handleChange}
-                            />
-                        </div>
-
                         <button className="btn log" type="submit">Отправить</button>
                         {isSubmit && <small className="report-text">Отправлено!</small>}
-                        <Link className="link" to="/officerlist">Список сотрудников</Link>
+                        <Link className="link" to="/officerList">Список сотрудников</Link>
                     </form>
                 </div>
             </div>
