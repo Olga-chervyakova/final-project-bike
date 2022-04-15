@@ -1,49 +1,62 @@
-import React, {useState}  from "react";
+import React, {useEffect, useState} from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import "../Authorization/Login.css";
 
 const Officers = () => {
-    const [isSubmit,setSubmit]=useState()
+    const officerValues = {
+        firstName: "",
+        lastName: "",
+        email: "",
+        password: "",
+        clientId: "af1d5f18-40b4-4325-a2a8-754f2318337a",
+        approved: false,
+    };
+
     const [data,setData]=useState(null)
-    const [name,setName]=useState("")
-    const [surName,setSurName]=useState("")
-    const [email,setEmail]=useState("")
-    const [password,setPassword]=useState("")
+    const [formValues, setFormValues] = useState(officerValues);
+    const [formErrors, setFormErrors] = useState({});
+    const [isSubmitting, setIsSubmitting] = useState(false);
+
+    const submit = () => {
+        console.log(formValues);
+    };
+
+    const handleChange = e => {
+        const {name, value} = e.target;
+        setFormValues({...formValues, [name]: value});
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        const data = {
-            firstName: name,
-            lastName: surName,
-            email: email,
-            password: password,
-            clientId: "af1d5f18-40b4-4325-a2a8-754f2318337a",
-            approved: false,
-        }
-        axios.post("https://sf-final-project.herokuapp.com/api/officers",data, {
+
+        axios.post("https://sf-final-project.herokuapp.com/api/officers",formValues, {
             headers:{
-                Authorization: "Bearer " +localStorage.getItem("token")
+                Authorization: `Bearer ${localStorage.getItem("bikeTheftAuthorization")}`
             }
         }).then(res => {
+            //console.log(res.data)
             setData(res.data)
-            setName("")
-            setSurName("")
-            setEmail("")
-            setPassword("")
-            setSubmit(true)
         })
-    }
+    };
+    useEffect(() => {
+        if (Object.keys(formErrors).length === 0 && isSubmitting) {
+            submit();
+        }
+    }, [formErrors]);
 
     return (
         <div className="main-container">
             <div className="container">
                 <div className="form-container">
                     <h1 className="form-logo">Cотрудники</h1>
+                    {Object.keys(formErrors).length === 0 && isSubmitting && (
+                        <span className="success-msg">Форма успешно отправлена!</span>
+                    )}
                     <form className="form" onSubmit={handleSubmit}>
                         <div className="form-control">
                             <div className="message">
-                                <label htmlFor="name">Имя</label>
+                                <label htmlFor="firstName">Имя</label>
                                 <div className="control-error">
                                 </div>
                             </div>
@@ -51,12 +64,13 @@ const Officers = () => {
                                 type="text"
                                 name="firstName"
                                 id="firstName"
-                                onChange={(e) => setName(e.target.value)} value={name}
+                                value={formValues.firstName}
+                                onChange={handleChange}
                             />
                         </div>
                         <div className="form-control">
                             <div className="message">
-                                <label htmlFor="name">Фамилия</label>
+                                <label htmlFor="lastName">Фамилия</label>
                                 <div className="control-error">
                                 </div>
                             </div>
@@ -64,12 +78,13 @@ const Officers = () => {
                                 type="text"
                                 name="lastName"
                                 id="lastName"
-                                onChange={(e) => setSurName(e.target.value)} value={surName}
+                                value={formValues.lastName}
+                                onChange={handleChange}
                             />
                         </div>
                         <div className="form-control">
                             <div className="message">
-                                <label htmlFor="name">Email:</label>
+                                <label htmlFor="email">Email:</label>
                                 <div className="control-error">
                                 </div>
                             </div>
@@ -77,12 +92,13 @@ const Officers = () => {
                                 type="text"
                                 name="email"
                                 id="email"
-                                onChange={(e) => setEmail(e.target.value)} value={email}
+                                value={formValues.email}
+                                onChange={handleChange}
                             />
                         </div>
                         <div className="form-control">
                             <div className="message">
-                                <label htmlFor="name">Пароль</label>
+                                <label htmlFor="password">Пароль</label>
                                 <div className="control-error">
                                 </div>
                             </div>
@@ -90,11 +106,11 @@ const Officers = () => {
                                 type="password"
                                 name="password"
                                 id="password"
-                                onChange={(e) => setPassword(e.target.value)} value={password}
+                                value={formValues.password}
+                                onChange={handleChange}
                             />
                         </div>
                         <button className="btn log" type="submit">Отправить</button>
-                        {isSubmit && <small className="report-text">Отправлено!</small>}
                         <Link className="link" to="/officerList">Список сотрудников</Link>
                     </form>
                 </div>

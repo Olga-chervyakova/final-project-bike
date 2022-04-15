@@ -1,10 +1,12 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 
+
 import './Header.css';
 import bicycle from "../../img/bicyclenew3.png"
 
 const Header = () => {
+
     let isAuth = false;
     if (localStorage.getItem("bikeTheftAuthorization") !== null) {
         //isAuth = localStorage.getItem("bikeTheftAuthorization").isAuth;

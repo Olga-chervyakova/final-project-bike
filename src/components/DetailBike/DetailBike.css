@@ -1,0 +1,29 @@
+.detail-title {
+    margin-top: 10px;
+    text-align: center;
+}
+.title-bike {
+    color: green;
+    margin-top: 5px;
+}
+.details-info {
+    text-align: center;
+    color: #3D4F9F;
+    font-weight: bold;
+}
+.detail-form-bike {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: #E8ECF4;
+    border: 1px solid #3D4F9F;
+    border-radius: 1px;
+    padding: 24px 24px;
+    margin-top: 10px;
+}
+.btn-details {
+    background-color: #4D6CE1;
+    border: 1px solid #4D6CE1;
+    height: 30px;
+    width: 120px;
+}

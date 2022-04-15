@@ -6,13 +6,14 @@ const Report = () => {
     const reportValues = {
         ownerFullName: "",
         licenseNumber: "",
+        date: new Date(),
         color: "",
+        officer:'',
         type: "",
         description: "",
-        officer: "",
         status: "new",
         createdAt: new Date(),
-        updateAt: new Date(),
+        updatedAt: new Date(),
         clientId: "af1d5f18-40b4-4325-a2a8-754f2318337a",
         approved: false
     };
@@ -67,7 +68,6 @@ const Report = () => {
                     {Object.keys(formErrors).length === 0 && isSubmitting && (
                         <span className="success-msg">Форма успешно отправлена!</span>
                     )}
-
                     <form className="form" onSubmit={handleSubmit}>
                         <div className="form-control">
                             <div className="message">
@@ -97,7 +97,19 @@ const Report = () => {
                                 onChange={handleChange}
                             />
                         </div>
-
+                        <div className="form-control">
+                            <div className="message">
+                                <label htmlFor="date">Дата кражи</label>
+                                <div className="control-error">
+                                </div>
+                            </div>
+                            <input
+                                type="date"
+                                name="date"
+                                id="date"
+                                onChange={handleChange}
+                            />
+                        </div>
                         <div className="form-control">
                             <div className="message">
                                 <label htmlFor="color">Цвет</label>
@@ -106,10 +118,9 @@ const Report = () => {
                             </div>
 
                             <input
-                                className="color"
-                                type="color"
-                                id="color"
+                                type="text"
                                 name="color"
+                                id="color"
                                 onChange={handleChange}
                             />
                         </div>
