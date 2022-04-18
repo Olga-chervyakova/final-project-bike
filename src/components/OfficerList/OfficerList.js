@@ -15,7 +15,7 @@ const OfficerList = () => {
 
         if (officer.approved === false) {
             officer.approved = true
-
+            console.log(officer);
             axios.put(`https://sf-final-project.herokuapp.com/api/officers/${officer._id}`,officer,{
                 headers:{
                     Authorization: `Bearer ${localStorage.getItem("bikeTheftAuthorization")}`,
@@ -43,7 +43,6 @@ const OfficerList = () => {
                 Authorization: `Bearer ${localStorage.getItem("bikeTheftAuthorization")}`
             }
         }).then(res => {
-            //console.log(res.data);
             setData(res.data.officers);
         });
     };
