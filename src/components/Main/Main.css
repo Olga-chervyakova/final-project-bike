@@ -1,0 +1,12 @@
+.main-container {
+    padding: 15px 0;
+    background: #fff;
+
+}
+.main-content_container {
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
