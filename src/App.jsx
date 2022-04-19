@@ -16,8 +16,6 @@ import Officers from "./components/Officers/Officers";
 import OfficerList from "./components/OfficerList/OfficerList";
 
 function App () {
-
-
     return (
         <Router>
             <div className="App">

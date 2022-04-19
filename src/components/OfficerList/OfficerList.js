@@ -15,8 +15,9 @@ const OfficerList = () => {
 
         if (officer.approved === false) {
             officer.approved = true
+            delete officer.password;
             console.log(officer);
-            axios.put(`https://sf-final-project.herokuapp.com/api/officers/${officer._id}`,officer,{
+            axios.put(`https://sf-final-project.herokuapp.com/api/officers/${officer._id}`, officer, {
                 headers:{
                     Authorization: `Bearer ${localStorage.getItem("bikeTheftAuthorization")}`,
                 }
@@ -30,7 +31,7 @@ const OfficerList = () => {
         const itemIdx = + e.target.attributes.getNamedItem("deleteofficer").value
         const officer = data[itemIdx]
 
-        axios.delete(`https://sf-final-project.herokuapp.com/api/officers/${officer._id}`,{
+        axios.delete(`https://sf-final-project.herokuapp.com/api/officers/${officer._id}`, {
             headers:{
                 Authorization: `Bearer ${localStorage.getItem("bikeTheftAuthorization")}`,
             }

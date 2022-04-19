@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import {Link, useHistory} from "react-router-dom"
+import {useHistory} from "react-router-dom"
 
 import "./Login.css";
 import axios from "axios";
@@ -35,10 +35,17 @@ const Login = () => {
                 .post(`/auth/sign_in`, formValues)
                 .then(res => {
                     if (res.status === 200) {
-                        console.log(res);
-                        console.log(res.data.data.token);
                         localStorage.setItem("bikeTheftAuthorization", res.data.data.token);
-                        history.push("/");
+
+                        /*const search = useLocation().search;
+                        const redirect = new URLSearchParams(search).get("redirect");
+                        if (redirect != null) {
+                            console.log('@@@@@');
+                            console.log(redirect);
+                            history.push(redirect);
+                        } else {*/
+                            history.push("/");
+                        //}
                     } else {
                         alert(res.statusText);
                     }
@@ -103,6 +110,7 @@ const Login = () => {
                                     onChange={handleChange}
                                     className={formErrors.password && "input-error"}
                                 />
+                                {isError && <small className="text-danger">Что-то пошло не так. Пожалуйста повторите попытку.</small>}
                             </div>
                             <button className="btn log" type="submit">Log In</button>
                         </form>
