@@ -25,17 +25,15 @@ const Login = () => {
         if (isError === true) {
             setFormErrors(validate(formValues));
         } else {
-            axios
-                .create({
-                    baseURL: "https://sf-final-project.herokuapp.com/api",
-                    headers: {
-                        "Content-Type": "application/json"
-                    }
-                })
-                .post(`/auth/sign_in`, formValues)
-                .then(res => {
+            axios.post(`https://sf-final-project.herokuapp.com/api/auth/sign_in`, formValues, {
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            }).then(res => {
                     if (res.status === 200) {
+                        console.log(res.data);
                         localStorage.setItem("bikeTheftAuthorization", res.data.data.token);
+                        localStorage.setItem("userId", res.data.data.user.id);
 
                         /*const search = useLocation().search;
                         const redirect = new URLSearchParams(search).get("redirect");

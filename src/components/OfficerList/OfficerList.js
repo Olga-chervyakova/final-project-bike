@@ -30,12 +30,15 @@ const OfficerList = () => {
 
         const itemIdx = + e.target.attributes.getNamedItem("deleteofficer").value
         const officer = data[itemIdx]
-
-        axios.delete(`https://sf-final-project.herokuapp.com/api/officers/${officer._id}`, {
-            headers:{
-                Authorization: `Bearer ${localStorage.getItem("bikeTheftAuthorization")}`,
-            }
-        }).then(() => loadData())
+        if (localStorage.getItem("userId") === officer._id) {
+            alert("Нельзя самовыпиливатся!");
+        } else {
+            axios.delete(`https://sf-final-project.herokuapp.com/api/officers/${officer._id}`, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("bikeTheftAuthorization")}`,
+                }
+            }).then(() => loadData())
+        }
     }
 
     const loadData = async () => {

@@ -30,7 +30,7 @@ const Officers = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
 
-        axios.post("https://sf-final-project.herokuapp.com/api/officers",formValues, {
+        axios.post("https://sf-final-project.herokuapp.com/api/officers", formValues, {
             headers:{
                 Authorization: `Bearer ${localStorage.getItem("bikeTheftAuthorization")}`
             }
