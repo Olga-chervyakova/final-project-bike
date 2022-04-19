@@ -1,7 +1,7 @@
 .header {
     display: flex;
     align-items: center;
-    background: #111;
+    background: #cacefd;
 }
 .header-container {
     width: 100%;
@@ -9,16 +9,13 @@
     justify-content: space-between;
     align-items: center;
 }
-.bicycle-logo {
-    position: relative;
-}
 .header-container_logo {
     display: block;
-    color: #d8d8d8;
+    color: #3D4F9F;
     padding: 0 6px;
     border-left: 1px solid #3498db;
     line-height: 1.15;
-    font-size: 12px;
+    font-size: 13px;
     font-family: open sans;
     font-style: italic;
     text-decoration: none;
@@ -44,25 +41,24 @@
     padding: 8px 15px;
 }
 .link {
-    font-family: open sans;
-    font-size: 12px;
+    font-size: 13px;
     text-decoration: none;
     align-items: center;
-    color: #a4a4a4;
+    color: #5d5b5b;
     margin: 0 20px;
 }
 .link.active {
-   color: #fff;
+   color:  #3D4F9F;
 }
 .btn {
-    background-color: #111;
-    color: #a4a4a4;
+    background-color: #E8ECF4;
+    color: #3D4F9F;
     min-width: 60px;
     cursor: pointer;
     padding: 5px;
     margin: 5px;
     font-size: 14px;
     border-radius: 4px;
-    border: 1px solid #3498db;
+    border: 1px solid #3D4F9F;
 }
 

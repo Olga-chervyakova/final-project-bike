@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import {Link, useHistory} from "react-router-dom"
+import {useHistory} from "react-router-dom"
 
 import "./Login.css";
 import axios from "axios";
@@ -25,20 +25,25 @@ const Login = () => {
         if (isError === true) {
             setFormErrors(validate(formValues));
         } else {
-            axios
-                .create({
-                    baseURL: "https://sf-final-project.herokuapp.com/api",
-                    headers: {
-                        "Content-Type": "application/json"
-                    }
-                })
-                .post(`/auth/sign_in`, formValues)
-                .then(res => {
+            axios.post(`https://sf-final-project.herokuapp.com/api/auth/sign_in`, formValues, {
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            }).then(res => {
                     if (res.status === 200) {
-                        console.log(res);
-                        console.log(res.data.data.token);
+                        console.log(res.data);
                         localStorage.setItem("bikeTheftAuthorization", res.data.data.token);
-                        history.push("/");
+                        localStorage.setItem("userId", res.data.data.user.id);
+
+                        /*const search = useLocation().search;
+                        const redirect = new URLSearchParams(search).get("redirect");
+                        if (redirect != null) {
+                            console.log('@@@@@');
+                            console.log(redirect);
+                            history.push(redirect);
+                        } else {*/
+                            history.push("/");
+                        //}
                     } else {
                         alert(res.statusText);
                     }
@@ -103,6 +108,7 @@ const Login = () => {
                                     onChange={handleChange}
                                     className={formErrors.password && "input-error"}
                                 />
+                                {isError && <small className="text-danger">Что-то пошло не так. Пожалуйста повторите попытку.</small>}
                             </div>
                             <button className="btn log" type="submit">Log In</button>
                         </form>
